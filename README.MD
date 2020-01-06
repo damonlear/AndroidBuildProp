@@ -2,4 +2,4 @@
 
 ## check system/build.prop apk
 
- ![image](https://github.com/damonlear/AndroidBuildProp/tree/master/app/img/demo_main.jpg)
+ ![image](https://raw.githubusercontent.com/damonlear/AndroidBuildProp/master/img/demo_main.png)
