@@ -50,10 +50,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestBuildProp() {
         list.clear()
-        list.add("手机厂商：" + BuildProp.deviceBrand)
+        list.add("手机品牌：" + BuildProp.deviceBrand)
         list.add("手机型号：" + BuildProp.systemModel)
         list.add("系统版本：" + BuildProp.systemVersion)
-        list.add("生产厂商：" + BuildProp.deviceManufacturer)
+        list.add("产品名称 ：" + BuildProp.deviceProduct)
+        list.add("设备制造：" + BuildProp.deviceManufacturer)
+        list.add("主板名称：" + BuildProp.deviceBoard)
+        list.add("硬件名称：" + BuildProp.deviceHardware)
+        list.add("设备驱动：" + BuildProp.deviceDevice)
+
         (listview.adapter as BaseAdapter).notifyDataSetChanged()
     }
 
