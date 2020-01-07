@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         list.add("主板名称：" + BuildProp.deviceBoard)
         list.add("硬件名称：" + BuildProp.deviceHardware)
         list.add("设备驱动：" + BuildProp.deviceDevice)
+        list.add("版本号：" + BuildProp.deviceID)
 
         (listview.adapter as BaseAdapter).notifyDataSetChanged()
     }
