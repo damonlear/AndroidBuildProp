@@ -27,14 +27,13 @@ class MainActivity : AppCompatActivity() {
         return perm == PackageManager.PERMISSION_GRANTED
     }
 
-    var list = ArrayList<String>()
+    private val list = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         list.add("暂无")
-        listview.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, list)
+        listview.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, list)
         if (!hasPermission(this)) {
             Toast.makeText(this, "无权限", Toast.LENGTH_SHORT).show()
             requestPermission()
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             .onGranted { requestBuildProp() }
             .onDenied {
                 if (AndPermission.hasAlwaysDeniedPermission(this, PERMISSION)) {
-                    go2System()
+                    go2SystemSetting()
                 } else {
                     requestPermission()
                 }
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             .start()
     }
 
-    protected fun go2System() {
+    private fun go2SystemSetting() {
         AlertDialog.Builder(this)
             .setMessage("需要手动开启权限才能使用")
             .setPositiveButton("设置") { _, _ ->
@@ -72,19 +71,16 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "缺失必要权限导致部分功能无法使用", Toast.LENGTH_SHORT).show()
                 finish()
             }
-            .create()
+            .create().apply {
+                setCancelable(false)
+                setCanceledOnTouchOutside(false)
+            }
             .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (RESULT_OK == resultCode) {
-            if (REQUEST_PERMISSION_CODE == requestCode) {
-                requestBuildProp()
-                return
-            }
-        }
-        go2System()
+        requestPermission()
     }
 
     private fun requestBuildProp() {
@@ -104,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish()
+            System.exit(0)
             return true
         }
         return super.onKeyDown(keyCode, event)
